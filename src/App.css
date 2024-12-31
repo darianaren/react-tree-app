@@ -15,6 +15,16 @@ body {
   background-color: #f0f7ff;
 }
 
+main {
+  margin: 6rem 1rem;
+}
+
+@media (min-width: 1200px) {
+  main {
+    margin: 6rem 10vw 0;
+  }
+}
+
 h1,
 h2,
 h3,

@@ -8,10 +8,12 @@ const RouterConfig = () => {
   return (
     <Router>
       <NavBar />
-      <Routes>
-        <Route path="/blog" element={<StaticPage />} />
-        <Route path="/" element={<Home />} />
-      </Routes>
+      <main>
+        <Routes>
+          <Route path="/blog" element={<StaticPage />} />
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </main>
     </Router>
   );
 };

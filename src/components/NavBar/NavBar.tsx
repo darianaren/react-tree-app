@@ -4,7 +4,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 
 import { PAGES } from "./constants";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 export default function NavBar() {
   return (
@@ -24,13 +24,19 @@ export default function NavBar() {
         </Typography>
         <Box component="nav" sx={{ display: { xs: "none", sm: "block" } }}>
           {PAGES.map(({ label, path }) => (
-            <Link
+            <NavLink
               to={path}
               key={path}
-              style={{ color: "#fff", padding: "12px" }}
+              style={({ isActive }) => ({
+                padding: "12px",
+                textDecoration: "none",
+                color: isActive ? "#ffaa00" : "#fff",
+                fontWeight: isActive ? "bold" : "normal",
+                transition: "color 0.3s ease, font-weight 0.3s ease"
+              })}
             >
               {label}
-            </Link>
+            </NavLink>
           ))}
         </Box>
       </Toolbar>
