@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Add, Remove } from "@mui/icons-material";
 
@@ -17,13 +17,18 @@ const RenderTree: React.FC<RenderTreeProps> = ({ data }) => {
 };
 
 const Tree: React.FC<TreeProps> = ({ title, value, onChange }) => {
-  const { editableTree } = useTree();
+  const { editableTree, expandAllTree } = useTree();
 
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleOpen = () => setIsOpen((prev) => !prev);
 
   const icon = isOpen ? <Remove /> : <Add />;
+
+  useEffect(() => {
+    setIsOpen(expandAllTree);
+  }, [expandAllTree]);
+
   return (
     <Box component="li" sx={{ listStyle: "none" }}>
       <Box component="div" sx={{ display: "flex" }}>

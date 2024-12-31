@@ -1,8 +1,4 @@
-interface TreeNode {
-  id: string;
-  title: string;
-  children?: TreeNode[];
-}
+import { TreeNode } from "../../providers/EditableTreeProvider/EditableTreeProvider.interfaces";
 
 export interface RenderTreeProps {
   data: TreeNode[];

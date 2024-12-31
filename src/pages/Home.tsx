@@ -1,31 +1,9 @@
-import { Button, Divider, Typography } from "@mui/material";
+import { Divider, Switch, Typography } from "@mui/material";
 
 import Tree from "../components/Tree/Tree";
 import useTree from "../hooks/useTree";
 const Home = () => {
-  const { toggleEditable } = useTree();
-
-  const prueba = {
-    title: "raíz del árbol",
-    children: [
-      {
-        id: "1",
-        title: "hijo1",
-        children: [
-          {
-            id: "2",
-            title: "nieto1",
-            children: []
-          }
-        ]
-      },
-      {
-        id: "3",
-        title: "hijo2",
-        children: []
-      }
-    ]
-  };
+  const { tree, toggleEditable, toggleExpandAllTree } = useTree();
 
   return (
     <>
@@ -36,10 +14,13 @@ const Home = () => {
 
       <Divider component="hr" style={{ margin: "1rem 0" }} />
 
-      <Button variant="contained" onClick={toggleEditable}>
-        Edit tree
-      </Button>
-      <Tree title={prueba.title} value={prueba.children} />
+      <label>Edit tree</label>
+      <Switch aria-label="Toggle editable tree" onClick={toggleEditable} />
+
+      <label>Expand all tree</label>
+      <Switch aria-label="Toggle expand tree" onClick={toggleExpandAllTree} />
+
+      <Tree title={tree.title} value={tree.children} />
     </>
   );
 };
