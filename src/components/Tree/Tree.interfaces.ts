@@ -6,6 +6,7 @@ export interface RenderTreeProps {
 
 export interface TreeProps {
   title: string;
+  isRoot?: boolean;
   value?: TreeNode[];
   editable?: boolean;
   onChange?: (newTree: TreeNode) => void;

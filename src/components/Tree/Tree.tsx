@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Add, Remove } from "@mui/icons-material";
 
 import { RenderTreeProps, TreeProps } from "./Tree.interfaces";
-import { Box, Button, IconButton, Typography } from "@mui/material";
+import { Box, Button, Icon, Typography } from "@mui/material";
 import useTree from "../../hooks/useTree";
 
 const RenderTree: React.FC<RenderTreeProps> = ({ data }) => {
@@ -16,7 +16,7 @@ const RenderTree: React.FC<RenderTreeProps> = ({ data }) => {
   );
 };
 
-const Tree: React.FC<TreeProps> = ({ title, value, onChange }) => {
+const Tree: React.FC<TreeProps> = ({ title, value, onChange, isRoot }) => {
   const { editableTree, expandAllTree } = useTree();
 
   const [isOpen, setIsOpen] = useState(false);
@@ -31,7 +31,10 @@ const Tree: React.FC<TreeProps> = ({ title, value, onChange }) => {
 
   return (
     <Box component="li" sx={{ listStyle: "none" }}>
-      <Box component="div" sx={{ display: "flex" }}>
+      <Box
+        component="div"
+        sx={{ display: "flex", alignItems: "center", gap: "0.5rem" }}
+      >
         {value?.length ? <Button onClick={toggleOpen}>{icon}</Button> : null}
 
         <Typography variant="h6" component="p">
@@ -39,9 +42,24 @@ const Tree: React.FC<TreeProps> = ({ title, value, onChange }) => {
         </Typography>
 
         {editableTree ? (
-          <IconButton aria-label="Add or delete node">
-            <Add />
-          </IconButton>
+          <div>
+            <Icon
+              color="primary"
+              sx={{ cursor: "pointer" }}
+              aria-label="Add or delete node"
+            >
+              post_add
+            </Icon>
+            {!isRoot ? (
+              <Icon
+                color="primary"
+                sx={{ cursor: "pointer" }}
+                aria-label="Add or delete node"
+              >
+                delete_outline
+              </Icon>
+            ) : null}
+          </div>
         ) : null}
       </Box>
 

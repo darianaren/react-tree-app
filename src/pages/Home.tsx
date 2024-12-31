@@ -20,7 +20,7 @@ const Home = () => {
       <label>Expand all tree</label>
       <Switch aria-label="Toggle expand tree" onClick={toggleExpandAllTree} />
 
-      <Tree title={tree.title} value={tree.children} />
+      <Tree title={tree.title} value={tree.children} isRoot />
     </>
   );
 };
