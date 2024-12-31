@@ -22,7 +22,7 @@ export default function NavBar() {
         >
           REACT TREE APP
         </Typography>
-        <Box component="nav" sx={{ display: { xs: "none", sm: "block" } }}>
+        <Box component="nav" sx={{ display: { sm: "block" } }}>
           {PAGES.map(({ label, path }) => (
             <NavLink
               to={path}
