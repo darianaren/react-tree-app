@@ -1,4 +1,4 @@
-import { TreeNode } from "../providers/EditableTreeProvider/EditableTreeProvider.interfaces";
+import { TreeNode } from "./EditableTreeProvider.interfaces";
 
 export const buildNodeMap = ({
   tree,

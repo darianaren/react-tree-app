@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 import { Snackbar, Alert } from "@mui/material";
 
@@ -27,11 +27,11 @@ function AlertProvider({ children }: AlertProviderProps) {
    * @param {string} message - The message to display in the alert.
    * @param {symbol} severity - The severity level of the alert.
    */
-  const showAlert: ShowAlertFunction = (message, severity) => {
+  const showAlert: ShowAlertFunction = useCallback((message, severity) => {
     setMessage(message);
     setSeverity(severity);
     setOpen(true);
-  };
+  }, []);
 
   /**
    * Stop displaying the message
@@ -39,9 +39,9 @@ function AlertProvider({ children }: AlertProviderProps) {
    * @function
    * @name handleClose
    */
-  const handleClose: CloseFunction = () => {
+  const handleClose: CloseFunction = useCallback(() => {
     setOpen(false);
-  };
+  }, []);
 
   return (
     <AlertContext.Provider value={{ showAlert }}>

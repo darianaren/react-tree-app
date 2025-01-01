@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import {
   AddNodeFunction,
@@ -8,10 +8,10 @@ import {
   ToggleFunction,
   TreeNode
 } from "./EditableTreeProvider.interfaces";
+import { buildNodeMap } from "./utils";
 import { TREE_DEFAULT } from "./constants";
 
 import { getItem } from "../../services/localStorage.service";
-import { buildNodeMap } from "../../services/buildNodeMap.service";
 import EditableTreeContext from "../../context/EditableTreeContext";
 
 function EditableTreeProvider({ children }: EditableTreeProviderProps) {
@@ -43,59 +43,73 @@ function EditableTreeProvider({ children }: EditableTreeProviderProps) {
     );
   };
 
-  const addNode: AddNodeFunction = async (parentId, titleNode) => {
-    const newNode: TreeNode = {
-      children: [],
-      title: titleNode,
-      id: Date.now().toString()
-    };
+  const addNode: AddNodeFunction = useCallback(
+    async (parentId, titleNode) => {
+      const newNode: TreeNode = {
+        children: [],
+        title: titleNode,
+        id: Date.now().toString()
+      };
 
-    const parentNode = nodeMap.get(parentId);
+      const parentNode = nodeMap.get(parentId);
 
-    if (parentNode) {
-      parentNode.children = parentNode.children || [];
-      parentNode.children.push(newNode);
+      if (parentNode) {
+        parentNode.children = parentNode.children || [];
+        parentNode.children.push(newNode);
 
-      await syncTreeAndNodeMap(tree);
-    } else {
-      console.error(`Parent node with id ${parentId} not found.`);
-    }
-  };
+        await syncTreeAndNodeMap(tree);
+      } else {
+        console.error(`Parent node with id ${parentId} not found.`);
+      }
+    },
+    [nodeMap, tree]
+  );
 
-  const editNode: EditNodeFunction = async (nodeId, updatedData) => {
-    const nodeToEdit = nodeMap.get(nodeId);
+  const editNode: EditNodeFunction = useCallback(
+    async (nodeId, updatedData) => {
+      const nodeToEdit = nodeMap.get(nodeId);
 
-    if (nodeToEdit) {
-      Object.assign(nodeToEdit, updatedData);
-      await syncTreeAndNodeMap(tree);
-    } else {
-      console.error(`Node with id ${nodeId} not found.`);
-    }
-  };
+      if (nodeToEdit) {
+        Object.assign(nodeToEdit, updatedData);
+        await syncTreeAndNodeMap(tree);
+      } else {
+        console.error(`Node with id ${nodeId} not found.`);
+      }
+    },
+    [nodeMap, tree]
+  );
 
-  const deleteNode: DeleteNodeFunction = async (nodeId) => {
-    const removeNode = (currentNode: TreeNode): TreeNode | null => {
-      if (currentNode.id === nodeId) return null;
+  const deleteNode: DeleteNodeFunction = useCallback(
+    async (nodeId) => {
+      const removeNode = (currentNode: TreeNode): TreeNode | null => {
+        if (currentNode.id === nodeId) return null;
 
-      currentNode.children = currentNode.children
-        ?.map(removeNode)
-        .filter((child) => child !== null) as TreeNode[];
+        currentNode.children = currentNode.children
+          ?.map(removeNode)
+          .filter((child) => child !== null) as TreeNode[];
 
-      return currentNode;
-    };
+        return currentNode;
+      };
 
-    const updatedTree = removeNode(tree);
-    if (updatedTree) {
-      await syncTreeAndNodeMap(updatedTree);
-    } else {
-      console.error(`Failed to delete node with id ${nodeId}.`);
-    }
-  };
+      const updatedTree = removeNode(tree);
+      if (updatedTree) {
+        await syncTreeAndNodeMap(updatedTree);
+      } else {
+        console.error(`Failed to delete node with id ${nodeId}.`);
+      }
+    },
+    [tree]
+  );
 
-  const toggleEditable: ToggleFunction = () => setEditableTree((prev) => !prev);
+  const toggleEditable: ToggleFunction = useCallback(
+    () => setEditableTree((prev) => !prev),
+    []
+  );
 
-  const toggleExpandAllTree: ToggleFunction = () =>
-    setExpandAllTree((prev) => !prev);
+  const toggleExpandAllTree: ToggleFunction = useCallback(
+    () => setExpandAllTree((prev) => !prev),
+    []
+  );
 
   return (
     <EditableTreeContext.Provider
