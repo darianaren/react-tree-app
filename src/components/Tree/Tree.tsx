@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
-import { Add, Remove } from "@mui/icons-material";
+import { Box } from "@mui/material";
 
-import { RenderTreeProps, TreeProps } from "./Tree.interfaces";
-import { Box, Button, Icon, Input, Typography } from "@mui/material";
-import useTree from "../../hooks/useTree";
-import debounce from "../../services/debounce.service";
 import { ACTIONS } from "./constants";
+import { RenderTreeProps, TreeProps } from "./Tree.interfaces";
+import { AddForm, CollapseIcon, RenderEditableTree } from "./layout";
+
+import useTree from "../../hooks/useTree";
 
 const RenderTree: React.FC<RenderTreeProps> = ({ data, onChange }) => {
   return (
@@ -25,12 +25,34 @@ const RenderTree: React.FC<RenderTreeProps> = ({ data, onChange }) => {
 };
 
 const Tree: React.FC<TreeProps> = ({ id, title, value, isRoot, onChange }) => {
-  const [isOpen, setIsOpen] = useState(true);
   const { editableTree, expandAllTree } = useTree();
 
-  const toggleOpen = () => setIsOpen((prev) => !prev);
+  const [isOpen, setIsOpen] = useState(true);
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [newNodeTitle, setNewNodeTitle] = useState("");
 
-  const icon = isOpen ? <Remove /> : <Add />;
+  const toggleOpenTree = useCallback(() => setIsOpen((prev) => !prev), []);
+
+  const openAddForm = useCallback(() => setShowAddForm(true), []);
+
+  const setNodeTitle = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) =>
+      setNewNodeTitle(event.target.value),
+    []
+  );
+
+  const handleAddNode = useCallback(() => {
+    if (newNodeTitle.trim()) {
+      onChange(ACTIONS.ADD_NODE, { id, title: newNodeTitle });
+      setShowAddForm(false);
+      setNewNodeTitle("");
+    }
+  }, [id, newNodeTitle, onChange]);
+
+  const handleCancelAdd = useCallback(() => {
+    setShowAddForm(false);
+    setNewNodeTitle("");
+  }, []);
 
   useEffect(() => {
     setIsOpen(expandAllTree);
@@ -38,69 +60,45 @@ const Tree: React.FC<TreeProps> = ({ id, title, value, isRoot, onChange }) => {
 
   return (
     <Box component="li" sx={{ listStyle: "none" }}>
-      <Box
-        component="div"
-        sx={{ display: "flex", alignItems: "center", gap: "0.5rem" }}
-      >
-        {value?.length ? <Button onClick={toggleOpen}>{icon}</Button> : null}
+      <Box component="div" sx={{ display: "flex", alignItems: "center" }}>
+        <CollapseIcon
+          isOpen={isOpen}
+          toggleOpen={toggleOpenTree}
+          display={Boolean(value?.length)}
+        />
 
-        {editableTree ? (
-          <Input
-            defaultValue={title}
-            sx={{ marginLeft: value?.length ? 0 : "4.5rem" }}
-            onChange={debounce({
-              func: (e) =>
-                onChange(ACTIONS.EDIT_NODE, { id, title: e.target.value })()
-            })}
+        <RenderEditableTree
+          id={id}
+          title={title}
+          isRoot={isRoot}
+          onChange={onChange}
+          isEditable={editableTree}
+          openAddForm={openAddForm}
+          isCollapsable={Boolean(value?.length)}
+        />
+      </Box>
+
+      {isOpen || showAddForm ? (
+        <Box
+          component="section"
+          sx={{
+            marginLeft: "2rem",
+            paddingLeft: "1rem",
+            borderLeft: "1px #000 solid"
+          }}
+        >
+          <AddForm
+            display={showAddForm}
+            newNodeTitle={newNodeTitle}
+            handleAddNode={handleAddNode}
+            setNewNodeTitle={setNodeTitle}
+            handleCancelAdd={handleCancelAdd}
           />
-        ) : (
-          <Typography
-            variant="h6"
-            component="p"
-            sx={{ marginLeft: value?.length ? 0 : "4.5rem" }}
-          >
-            {title}
-          </Typography>
-        )}
-
-        {editableTree ? (
-          <div>
-            <Button onClick={onChange(ACTIONS.ADD_NODE, { id, title: "Hola" })}>
-              <Icon
-                color="primary"
-                sx={{ cursor: "pointer" }}
-                aria-label="Add or delete node"
-              >
-                post_add
-              </Icon>
-            </Button>
-            {!isRoot ? (
-              <Button onClick={onChange(ACTIONS.DELETE_NODE, { id })}>
-                <Icon
-                  color="primary"
-                  sx={{ cursor: "pointer" }}
-                  aria-label="Add or delete node"
-                >
-                  delete_outline
-                </Icon>
-              </Button>
-            ) : null}
-          </div>
-        ) : null}
-      </Box>
-
-      <Box
-        component="section"
-        sx={{
-          marginLeft: "2rem",
-          paddingLeft: "1rem",
-          borderLeft: "1px #000 solid"
-        }}
-      >
-        {isOpen && value?.length ? (
-          <RenderTree data={value} onChange={onChange} />
-        ) : null}
-      </Box>
+          {isOpen && value?.length ? (
+            <RenderTree data={value} onChange={onChange} />
+          ) : null}
+        </Box>
+      ) : null}
     </Box>
   );
 };

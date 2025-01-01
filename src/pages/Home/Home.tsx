@@ -1,3 +1,5 @@
+import { useCallback } from "react";
+
 import { Divider, Switch, Typography } from "@mui/material";
 
 import { treeActions } from "./utils";
@@ -5,7 +7,7 @@ import { treeActions } from "./utils";
 import useTree from "../../hooks/useTree";
 import useAlert from "../../hooks/useAlert";
 import Tree from "../../components/Tree/Tree";
-import { TreeActionsParams } from "../../components/Tree/Tree.interfaces";
+import { OnChangeFuntion } from "../../components/Tree/Tree.interfaces";
 
 const Home = () => {
   const {
@@ -20,8 +22,8 @@ const Home = () => {
   } = useTree();
   const { showAlert } = useAlert();
 
-  const onChange =
-    (typeAction: symbol, params: TreeActionsParams) => async () => {
+  const onChange: OnChangeFuntion = useCallback(
+    async (typeAction, params) => {
       const objectActions = treeActions({
         addNode,
         editNode,
@@ -32,7 +34,9 @@ const Home = () => {
       const action = objectActions[typeAction];
 
       await action(params);
-    };
+    },
+    [addNode, deleteNode, editNode, showAlert]
+  );
 
   return (
     <>

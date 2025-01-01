@@ -1,3 +1,5 @@
+import React from "react";
+
 import { TreeNode } from "../../providers/EditableTreeProvider/EditableTreeProvider.interfaces";
 
 export interface TreeActionsParams {
@@ -6,7 +8,7 @@ export interface TreeActionsParams {
 }
 
 export interface OnChangeFuntion {
-  (typeAction: symbol, params: TreeActionsParams): () => void | Promise<void>;
+  (typeAction: symbol, params: TreeActionsParams): void | Promise<void>;
 }
 
 export interface RenderTreeProps {
@@ -20,4 +22,28 @@ export interface TreeProps {
   isRoot?: boolean;
   value?: TreeNode[];
   onChange: OnChangeFuntion;
+}
+
+export interface CollapseIconProps {
+  display: boolean;
+  isOpen: boolean;
+  toggleOpen: () => void;
+}
+
+export interface RenderEditableTreeProps {
+  id: string;
+  title: string;
+  isRoot?: boolean;
+  isEditable: boolean;
+  isCollapsable: boolean;
+  openAddForm: () => void;
+  onChange: OnChangeFuntion;
+}
+
+export interface AddFormProps {
+  display: boolean;
+  newNodeTitle: string;
+  handleAddNode: () => void;
+  handleCancelAdd: () => void;
+  setNewNodeTitle: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
