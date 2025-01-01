@@ -61,13 +61,15 @@ const Home = () => {
         aria-label="Toggle expand tree"
       />
 
-      <Tree
-        isRoot
-        id={tree.id}
-        title={tree.title}
-        onChange={onChange}
-        value={tree.children}
-      />
+      <ul>
+        <Tree
+          isRoot
+          id={tree.id}
+          title={tree.title}
+          onChange={onChange}
+          value={tree.children}
+        />
+      </ul>
     </>
   );
 };

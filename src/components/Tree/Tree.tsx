@@ -42,8 +42,9 @@ const Tree: React.FC<TreeProps> = ({ id, title, value, isRoot, onChange }) => {
   );
 
   const handleAddNode = useCallback(() => {
+    onChange(ACTIONS.ADD_NODE, { id, title: newNodeTitle });
+
     if (newNodeTitle.trim()) {
-      onChange(ACTIONS.ADD_NODE, { id, title: newNodeTitle });
       setShowAddForm(false);
       setNewNodeTitle("");
     }

@@ -90,11 +90,11 @@ export const AddForm: React.FC<AddFormProps> = ({
   return (
     <Box sx={{ marginLeft: "4rem", marginTop: "1rem" }}>
       <Input
+        required
         type="text"
         value={newNodeTitle}
         onChange={setNewNodeTitle}
         placeholder="Enter title for new node"
-        fullWidth
       />
       <Box sx={{ marginTop: "0.5rem" }}>
         <Button onClick={handleAddNode} variant="contained" color="primary">
