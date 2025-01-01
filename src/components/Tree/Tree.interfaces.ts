@@ -5,6 +5,7 @@ export interface RenderTreeProps {
 }
 
 export interface TreeProps {
+  id: string;
   title: string;
   isRoot?: boolean;
   value?: TreeNode[];

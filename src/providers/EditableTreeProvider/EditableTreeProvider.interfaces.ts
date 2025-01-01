@@ -14,15 +14,26 @@ export interface ToggleFunction {
   (): void;
 }
 
-export interface UpdateTreeFunction {
-  (newTree: TreeNode): Promise<void>;
+export interface AddNodeFunction {
+  (parentId: string, titleNode: string): Promise<void>;
+}
+
+export interface EditNodeFunction {
+  (nodeId: string, updatedData: Partial<TreeNode>): Promise<void>;
+}
+
+export interface DeleteNodeFunction {
+  (nodeId: string): Promise<void>;
 }
 
 export interface EditableTreeContextType {
   tree: TreeNode;
   editableTree: boolean;
   expandAllTree: boolean;
-  updateTree: UpdateTreeFunction;
+  nodeMap: Map<string, TreeNode>;
+  addNode: AddNodeFunction;
+  editNode: EditNodeFunction;
+  deleteNode: DeleteNodeFunction;
   toggleEditable: ToggleFunction;
   toggleExpandAllTree: ToggleFunction;
 }
