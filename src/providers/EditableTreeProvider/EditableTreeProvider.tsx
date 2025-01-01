@@ -59,7 +59,7 @@ function EditableTreeProvider({ children }: EditableTreeProviderProps) {
 
         await syncTreeAndNodeMap(tree);
       } else {
-        console.error(`Parent node with id ${parentId} not found.`);
+        throw new Error(`Parent node with id ${parentId} not found.`);
       }
     },
     [nodeMap, tree]
@@ -73,7 +73,7 @@ function EditableTreeProvider({ children }: EditableTreeProviderProps) {
         Object.assign(nodeToEdit, updatedData);
         await syncTreeAndNodeMap(tree);
       } else {
-        console.error(`Node with id ${nodeId} not found.`);
+        throw new Error(`Node with id ${nodeId} not found.`);
       }
     },
     [nodeMap, tree]
@@ -95,7 +95,7 @@ function EditableTreeProvider({ children }: EditableTreeProviderProps) {
       if (updatedTree) {
         await syncTreeAndNodeMap(updatedTree);
       } else {
-        console.error(`Failed to delete node with id ${nodeId}.`);
+        throw new Error(`Failed to delete node with id ${nodeId}.`);
       }
     },
     [tree]

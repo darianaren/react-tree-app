@@ -6,8 +6,9 @@ import { RenderTreeProps, TreeProps } from "./Tree.interfaces";
 import { Box, Button, Icon, Input, Typography } from "@mui/material";
 import useTree from "../../hooks/useTree";
 import debounce from "../../services/debounce.service";
+import { ACTIONS } from "./constants";
 
-const RenderTree: React.FC<RenderTreeProps> = ({ data }) => {
+const RenderTree: React.FC<RenderTreeProps> = ({ data, onChange }) => {
   return (
     <ul>
       {data.map((node) => (
@@ -15,6 +16,7 @@ const RenderTree: React.FC<RenderTreeProps> = ({ data }) => {
           id={node.id}
           key={node.id}
           title={node.title}
+          onChange={onChange}
           value={node.children}
         />
       ))}
@@ -22,10 +24,9 @@ const RenderTree: React.FC<RenderTreeProps> = ({ data }) => {
   );
 };
 
-const Tree: React.FC<TreeProps> = ({ id, title, value, isRoot }) => {
+const Tree: React.FC<TreeProps> = ({ id, title, value, isRoot, onChange }) => {
   const [isOpen, setIsOpen] = useState(true);
-  const { editableTree, expandAllTree, addNode, editNode, deleteNode } =
-    useTree();
+  const { editableTree, expandAllTree } = useTree();
 
   const toggleOpen = () => setIsOpen((prev) => !prev);
 
@@ -46,19 +47,25 @@ const Tree: React.FC<TreeProps> = ({ id, title, value, isRoot }) => {
         {editableTree ? (
           <Input
             defaultValue={title}
+            sx={{ marginLeft: value?.length ? 0 : "4.5rem" }}
             onChange={debounce({
-              func: (e) => editNode(id, { title: e.target.value })
+              func: (e) =>
+                onChange(ACTIONS.EDIT_NODE, { id, title: e.target.value })()
             })}
           />
         ) : (
-          <Typography variant="h6" component="p">
+          <Typography
+            variant="h6"
+            component="p"
+            sx={{ marginLeft: value?.length ? 0 : "4.5rem" }}
+          >
             {title}
           </Typography>
         )}
 
         {editableTree ? (
           <div>
-            <Button onClick={() => addNode(id, "Hola")}>
+            <Button onClick={onChange(ACTIONS.ADD_NODE, { id, title: "Hola" })}>
               <Icon
                 color="primary"
                 sx={{ cursor: "pointer" }}
@@ -68,7 +75,7 @@ const Tree: React.FC<TreeProps> = ({ id, title, value, isRoot }) => {
               </Icon>
             </Button>
             {!isRoot ? (
-              <Button onClick={() => deleteNode(id)}>
+              <Button onClick={onChange(ACTIONS.DELETE_NODE, { id })}>
                 <Icon
                   color="primary"
                   sx={{ cursor: "pointer" }}
@@ -90,7 +97,9 @@ const Tree: React.FC<TreeProps> = ({ id, title, value, isRoot }) => {
           borderLeft: "1px #000 solid"
         }}
       >
-        {isOpen && value?.length ? <RenderTree data={value} /> : null}
+        {isOpen && value?.length ? (
+          <RenderTree data={value} onChange={onChange} />
+        ) : null}
       </Box>
     </Box>
   );
