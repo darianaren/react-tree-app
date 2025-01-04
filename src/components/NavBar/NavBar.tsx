@@ -18,7 +18,7 @@ import { NavBarProps } from "./NavBar.interfaces";
  *
  * @component
  * @param {Object} props - Component props.
- * @param {Readonly<Page[]>} [props.pages=DEFAULT_PAGES] - Array of page objects, where each object contains a label and a path for the navigation link.
+ *    @param {Readonly<Page[]>} [props.pages=DEFAULT_PAGES] - Array of page objects, where each object contains a label and a path for the navigation link.
  *
  * @example
  * ```

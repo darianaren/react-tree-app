@@ -8,6 +8,17 @@ import { AddForm, CollapseIcon, RenderEditableTree } from "./layout";
 
 import useTree from "../../hooks/useTree";
 
+/**
+ * RenderTree - A component that renders a tree of nodes.
+ *
+ * This component receives a list of nodes and renders them using the `Tree` component.
+ *
+ * @param {Object} props - Component props.
+ *    @param {Array<TreeProps>} props.data - List of nodes to render.
+ *    @param {Function} props.onChange - A function to handle changes to the nodes.
+ *
+ * @returns {JSX.Element} - The representation of the tree of nodes.
+ */
 const RenderTree: React.FC<RenderTreeProps> = ({ data, onChange }) => {
   return (
     <ul>
@@ -24,6 +35,38 @@ const RenderTree: React.FC<RenderTreeProps> = ({ data, onChange }) => {
   );
 };
 
+/**
+ * Tree Component
+ * A component that represents a tree node, with options to collapse and expand.
+ * This component allows adding nodes, collapsing or expanding nodes, and editing the node's title.
+ *
+ * @component
+ * @param {Object} props - Component props.
+ *    @param {string} props.id - The unique ID of the node.
+ *    @param {string} props.title - The title of the node.
+ *    @param {Array<TreeProps>} props.value - The child nodes of this node.
+ *    @param {boolean} props.isRoot - Whether the node is the root of the tree.
+ *    @param {Function} props.onChange - A function to handle changes to the nodes.
+ *
+ * @example
+ * ```
+ * const CHILDREN = [
+ *    {children: Array(2), title: 'Child 1', id: '1735767530815'},
+ *    {children: Array(0), title: 'Child 2', id: '1735773523947'},
+ *    {children: Array(0), title: 'Child 3', id: '1735773531837'}
+ * ]
+ *
+ * <Tree
+ *    isRoot
+ *    id='my-tree-1'
+ *    title='My tree'
+ *    value={CHILDREN}
+ *    onChange={onChange}
+ * />
+ * ```
+ *
+ * @returns {JSX.Element} - The representation of a node with edit and expand options.
+ */
 const Tree: React.FC<TreeProps> = ({ id, title, value, isRoot, onChange }) => {
   const { editableTree, expandAllTree } = useTree();
 
