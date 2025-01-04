@@ -1,6 +1,8 @@
 import React, { memo } from "react";
-import { Box, Button, Icon, Input, Typography } from "@mui/material";
 import { Add, Remove } from "@mui/icons-material";
+import PostAddIcon from "@mui/icons-material/PostAdd";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import { Box, Button, IconButton, Input, Typography } from "@mui/material";
 
 import { ACTIONS } from "./constants";
 import {
@@ -58,25 +60,24 @@ export const RenderEditableTree: React.FC<RenderEditableTreeProps> = memo(
                 onChange(ACTIONS.EDIT_NODE, { id, title: e.target.value })
             })}
           />
-          <Button onClick={openAddForm}>
-            <Icon
+          <IconButton onClick={openAddForm} aria-label="Add node">
+            <PostAddIcon
               color="primary"
+              aria-label="Add node"
               sx={{ cursor: "pointer" }}
-              aria-label="Add or delete node"
-            >
-              post_add
-            </Icon>
-          </Button>
+            />
+          </IconButton>
           {!isRoot ? (
-            <Button onClick={() => onChange(ACTIONS.DELETE_NODE, { id })}>
-              <Icon
+            <IconButton
+              aria-label="Delete node"
+              onClick={() => onChange(ACTIONS.DELETE_NODE, { id })}
+            >
+              <DeleteOutlineIcon
                 color="primary"
+                aria-label="Delete node"
                 sx={{ cursor: "pointer" }}
-                aria-label="Add or delete node"
-              >
-                delete_outline
-              </Icon>
-            </Button>
+              />
+            </IconButton>
           ) : null}
         </>
       );
