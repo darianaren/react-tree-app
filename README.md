@@ -1,46 +1,67 @@
-# Getting Started with Create React App
+# React Tree App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+React Tree App es una aplicación web que utiliza React, Material-UI, y React Router para mostrar una estructura jerárquica de navegación, proporcionando una interfaz limpia y responsiva para interactuar con una estructura de árbol. La aplicación permite la visualización de páginas y enlaces de navegación personalizables.
 
-## Available Scripts
+La aplicación está diseñada para ser flexible y extensible, permitiendo la fácil integración con diferentes conjuntos de páginas. Además, incluye una configuración de Storybook para el desarrollo y prueba de componentes aislados.
 
-In the project directory, you can run:
+![image](https://github.com/user-attachments/assets/5a98615d-c0d0-40b1-a643-d70d9ff7ce18)
 
-### `npm start`
+## 🌐 Enlace de Despliegue
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Puedes ver la aplicación en vivo en [react-tree-app-peach.vercel.app](https://react-tree-app-peach.vercel.app).
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## 🚀 Instalación
 
-### `npm test`
+Para instalar las dependencias y ejecutar la aplicación localmente, sigue estos pasos:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Clona el repositorio:
+   ```bash
+   git clone https://github.com/darianaren/react-tree-app.git
+   ```
 
-### `npm run build`
+2. Navega al directorio del proyecto:
+   ```bash
+   cd react-tree-app
+   ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+3. Instala las dependencias:
+   ```bash
+   npm install
+   ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+4. Inicia la aplicación en modo de desarrollo:
+   ```bash
+   npm start
+   ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Esto abrirá la aplicación en http://localhost:3000.
 
-### `npm run eject`
+## 🔧 Tecnologías Utilizadas
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- **React**: Biblioteca principal para la creación de la interfaz de usuario.
+- **Material-UI**: Biblioteca de componentes para la interfaz de usuario con un diseño limpio y responsivo.
+- **React Router**: Para la gestión de rutas y navegación en la aplicación.
+- **Storybook**: Herramienta para desarrollar y documentar componentes aislados.
+- **Cypress**: Herramienta para pruebas end-to-end (E2E), que se planea agregar próximamente.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 📚 Scripts
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- ```npm start```: Inicia la aplicación en modo de desarrollo.
+- ```npm run build```: Construye la aplicación para producción en la carpeta build.
+- ```npm run test```: Ejecuta las pruebas configuradas para el proyecto.
+- ```npm run storybook```: Inicia Storybook en el puerto 6006 para la vista de los componentes.
+- ```npm run build-storybook```: Construye la versión estática de Storybook.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## 📒 Storybook
 
-## Learn More
+Este proyecto utiliza Storybook para el desarrollo de componentes aislados. Puedes acceder a Storybook para visualizar y probar componentes de forma individual.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Para ejecutar Storybook, usa el siguiente comando:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+  ```bash
+  npm run storybook
+  ```
+
+Esto abrirá Storybook en http://localhost:6006.
+
+### ¡Gracias por tu interés en React Tree App! ❤
