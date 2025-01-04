@@ -86,7 +86,7 @@ export const RenderEditableTree: React.FC<RenderEditableTreeProps> = memo(
       <Typography
         variant="h6"
         component="p"
-        sx={{ marginLeft: isCollapsable ? 0 : "4.5rem" }}
+        sx={{ marginLeft: isCollapsable ? 0 : "4rem" }}
       >
         {title}
       </Typography>

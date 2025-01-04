@@ -12,7 +12,7 @@ const RouterConfig = () => {
       <NavBar pages={PAGES} />
       <main>
         <Routes>
-          <Route path="/blog" element={<StaticPage />} />
+          <Route path="/about" element={<StaticPage />} />
           <Route path="/" element={<Home />} />
         </Routes>
       </main>
