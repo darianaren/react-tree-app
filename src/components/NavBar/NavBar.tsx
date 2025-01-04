@@ -21,7 +21,7 @@ import { NavBarProps } from "./NavBar.interfaces";
  *    @param {Readonly<Page[]>} [props.pages=DEFAULT_PAGES] - Array of page objects, where each object contains a label and a path for the navigation link.
  *
  * @example
- * ```
+ * ```tsx
  * const PAGES = Object.freeze([
  *   { label: "Home", path: "/" },
  *   { label: "About", path: "/about" },

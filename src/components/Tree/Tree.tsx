@@ -49,7 +49,7 @@ const RenderTree: React.FC<RenderTreeProps> = ({ data, onChange }) => {
  *    @param {Function} props.onChange - A function to handle changes to the nodes.
  *
  * @example
- * ```
+ * ```tsx
  * const CHILDREN = [
  *    {children: Array(2), title: 'Child 1', id: '1735767530815'},
  *    {children: Array(0), title: 'Child 2', id: '1735773523947'},
