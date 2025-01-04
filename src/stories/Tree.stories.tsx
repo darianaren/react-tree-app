@@ -1,25 +1,26 @@
+import { fn } from "@storybook/test";
 import { Switch } from "@mui/material";
 import { Meta, StoryFn } from "@storybook/react";
 
-import {
-  TreeActionsParams,
-  TreeProps
-} from "../components/Tree/Tree.interfaces";
 import useTree from "../hooks/useTree";
 import Tree from "../components/Tree/Tree";
+import { TreeProps } from "../components/Tree/Tree.interfaces";
 import { TreeNode } from "../providers/EditableTreeProvider/EditableTreeProvider.interfaces";
 
 const meta: Meta<TreeProps> = {
   title: "Components/Tree",
   component: Tree,
   tags: ["autodocs"],
+  args: {
+    onChange: fn()
+  },
   argTypes: {
     onChange: { action: "onChange" },
     isRoot: {
       control: {
         type: "boolean"
       },
-      description: "Define si el nodo es el raíz del árbol"
+      description: "Defines whether the node is the root of the tree"
     }
   }
 };
@@ -64,9 +65,7 @@ const Template: StoryFn<TreeProps> = (args) => {
 export const Default: StoryFn<TreeProps> = Template.bind({});
 Default.args = {
   id: "root",
-  title: "Root Node",
-  value: SAMPLE_DATA,
   isRoot: true,
-  onChange: (typeAction: symbol, params: TreeActionsParams): void =>
-    console.log("Tree Action:", { typeAction, params })
+  title: "Root Node",
+  value: SAMPLE_DATA
 };
