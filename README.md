@@ -84,4 +84,22 @@ Para ejecutar los tests en modo headless (sin interfaz gráfica):
 npm run test:cypress:headless
 ```
 
+## 🔄 Integración Continua (CI) - GitHub Actions
+
+Este proyecto está configurado con GitHub Actions para ejecutar las pruebas de Cypress automáticamente cada vez que se realiza un `push` o una `pull request` en la rama principal (`main`).
+
+### Flujo de trabajo
+
+1. **Acciones de GitHub**:
+   Cada vez que se realiza un `push` o una `pull request` en la rama `main`, se ejecuta el flujo de trabajo de GitHub Actions definido en `.github/workflows/cypress.yml`. Este flujo de trabajo realiza lo siguiente:
+
+   - **Instala las dependencias**: Instala las dependencias de Node.js y Cypress.
+   - **Ejecuta los tests de Cypress**: Ejecuta las pruebas end-to-end (E2E) en un entorno de Ubuntu sin interfaz gráfica (modo headless).
+
+2. **Ver los resultados de las pruebas**:
+   Puedes ver el estado de las pruebas en la pestaña **Actions** de GitHub. Cada vez que se ejecutan los tests, verás un informe detallado de los resultados.
+
+3. **Configuración**:
+   Si deseas modificar o ajustar los tests, puedes hacerlo editando el archivo `.github/workflows/cypress.yml`. Este archivo contiene la configuración del flujo de trabajo de CI para Cypress.
+
 ### ¡Gracias por tu interés en React Tree App! ❤
