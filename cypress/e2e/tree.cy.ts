@@ -5,92 +5,92 @@ describe("E2E test of the Tree component", () => {
     cy.get('input[name="editableTreeSwitch"]').click();
   });
 
-  it("El nodo principal no tiene el botón para eliminarlo", () => {
-    //Encontrar el nodo principal
+  it("The root node does not have the button to delete it", () => {
+    // Find the root node
     cy.get('input[value="Root of the Tree"]')
-      .closest("li") // Encontrar el contenedor del nodo
-      .find('button[aria-label="Delete node"]') // Encontrar el botón de eliminar
-      .should("not.exist"); // Verificar que no haya un botón de eliminar
+      .closest("li") // Find the node container
+      .find('button[aria-label="Delete node"]') // Find the delete button
+      .should("not.exist"); // Verify that there is no delete button
   });
 
-  it("Agregar un nuevo nodo", () => {
-    // Clic en el botón de agregar nodo
+  it("Add a new node", () => {
+    // Click on the add node button
     cy.get('button[aria-label="Add node"]').click();
 
-    // Ingresar el título del nuevo nodo
+    // Enter the title for the new node
     cy.get('input[placeholder="Enter title for new node"]').type("New Node");
 
-    // Clic en el botón de agregar
+    // Click on the add button
     cy.get('button[aria-label="Confirm add node"]').click();
 
-    // Verificar que el nodo fue agregado
+    // Verify that the node was added
     cy.get('input[value="New Node"]').should("exist");
   });
 
-  it("Eliminar un nodo", () => {
-    // Crear nodo para eliminar
+  it("Delete a node", () => {
+    // Create node to delete
     cy.get('button[aria-label="Add node"]').click();
     cy.get('input[placeholder="Enter title for new node"]').type("Delete Node");
     cy.get('button[aria-label="Confirm add node"]').click();
 
-    // Encontrar un nodo
+    // Find a node
     cy.get('input[value="Delete Node"]')
-      .closest("li") // Encontrar el contenedor del nodo
-      .find('button[aria-label="Delete node"]') // Encontrar el botón de eliminar
+      .closest("li") // Find the node container
+      .find('button[aria-label="Delete node"]') // Find the delete button
       .click();
 
-    // Verificar que el nodo fue eliminado
+    // Verify that the node was deleted
     cy.contains('input[value="Delete Node"]').should("not.exist");
   });
 
-  it("Editar un nodo", () => {
-    // Crear nodo para editar
+  it("Edit a node", () => {
+    // Create node to edit
     cy.get('button[aria-label="Add node"]').click();
     cy.get('input[placeholder="Enter title for new node"]').type("Node");
     cy.get('button[aria-label="Confirm add node"]').click();
 
-    // Encontrar un nodo y editarlo
+    // Find a node and edit it
     cy.get('input[value="Node"]').type(" with New Title");
 
-    // Salir del modo edición
+    // Exit edit mode
     cy.wait(350);
     cy.get('input[name="editableTreeSwitch"]').click();
 
-    // Verificar que el título del nodo haya cambiado
+    // Verify that the node title has changed
     cy.contains("Node with New Title").should("exist");
   });
 
-  it("Colapsar y expandir un nodo", () => {
-    // Crear nodo nuevo
+  it("Collapse and expand a node", () => {
+    // Create a new node
     cy.get('button[aria-label="Add node"]').click();
     cy.get('input[placeholder="Enter title for new node"]').type("Node");
     cy.get('button[aria-label="Confirm add node"]').click();
 
-    // Encontrar el nodo con hijos
+    // Find the node with children
     cy.get('input[value="Root of the Tree"]')
-      .closest("li") // Encontrar el contenedor del nodo
-      .find('button[aria-label="Hide children of the node"]') // Encontrar el botón de colapsar
-      .should("exist"); // Verificar que el nodo esté expandido por defecto
+      .closest("li") // Find the node container
+      .find('button[aria-label="Hide children of the node"]') // Find the collapse button
+      .should("exist"); // Verify that the node is expanded by default
 
-    // Colapsar el nodo
+    // Collapse the node
     cy.get('input[value="Root of the Tree"]')
       .closest("li")
       .find('button[aria-label="Hide children of the node"]')
       .click();
 
-    // Verificar que el nodo se haya colapsado
+    // Verify that the node has collapsed
     cy.get('input[value="Root of the Tree"]')
       .closest("li")
       .find('button[aria-label="Show children of the node"]')
       .should("exist");
 
-    // Expandir nuevamente el nodo
+    // Expand the node again
     cy.get('input[value="Root of the Tree"]')
       .closest("li")
       .find('button[aria-label="Show children of the node"]')
       .click();
 
-    // Verificar que el nodo esté expandido
+    // Verify that the node is expanded
     cy.get('input[value="Root of the Tree"]')
       .closest("li")
       .find('button[aria-label="Hide children of the node"]')
