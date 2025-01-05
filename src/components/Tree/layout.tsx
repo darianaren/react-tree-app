@@ -28,7 +28,16 @@ export const CollapseIcon: React.FC<CollapseIconProps> = memo(
 
     const icon = isOpen ? <Remove /> : <Add />;
 
-    return <Button onClick={toggleOpen}>{icon}</Button>;
+    return (
+      <Button
+        onClick={toggleOpen}
+        aria-label={
+          isOpen ? "Hide children of the node" : "Show children of the node"
+        }
+      >
+        {icon}
+      </Button>
+    );
   }
 );
 
@@ -53,7 +62,6 @@ export const RenderEditableTree: React.FC<RenderEditableTreeProps> = memo(
       return (
         <>
           <Input
-            name="new-node"
             defaultValue={title}
             sx={{ marginLeft: isCollapsable ? 0 : "4.5rem" }}
             onChange={debounce({
@@ -62,22 +70,14 @@ export const RenderEditableTree: React.FC<RenderEditableTreeProps> = memo(
             })}
           />
           <IconButton onClick={openAddForm} aria-label="Add node">
-            <PostAddIcon
-              color="primary"
-              aria-label="Add node"
-              sx={{ cursor: "pointer" }}
-            />
+            <PostAddIcon color="primary" sx={{ cursor: "pointer" }} />
           </IconButton>
           {!isRoot ? (
             <IconButton
               aria-label="Delete node"
               onClick={() => onChange(ACTIONS.DELETE_NODE, { id })}
             >
-              <DeleteOutlineIcon
-                color="primary"
-                aria-label="Delete node"
-                sx={{ cursor: "pointer" }}
-              />
+              <DeleteOutlineIcon color="primary" sx={{ cursor: "pointer" }} />
             </IconButton>
           ) : null}
         </>
@@ -128,13 +128,19 @@ export const AddForm: React.FC<AddFormProps> = memo(
           placeholder="Enter title for new node"
         />
         <Box sx={{ marginTop: "0.5rem" }}>
-          <Button onClick={handleAddNode} variant="contained" color="primary">
+          <Button
+            color="primary"
+            variant="contained"
+            onClick={handleAddNode}
+            aria-label="Confirm add node"
+          >
             Add
           </Button>
           <Button
-            onClick={handleCancelAdd}
-            variant="outlined"
             color="secondary"
+            variant="outlined"
+            onClick={handleCancelAdd}
+            aria-label="Cancel add node"
             sx={{ marginLeft: "0.5rem" }}
           >
             Cancel
