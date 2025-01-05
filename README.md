@@ -99,7 +99,4 @@ Este proyecto está configurado con GitHub Actions para ejecutar las pruebas de 
 2. **Ver los resultados de las pruebas**:
    Puedes ver el estado de las pruebas en la pestaña **Actions** de GitHub. Cada vez que se ejecutan los tests, verás un informe detallado de los resultados.
 
-3. **Configuración**:
-   Si deseas modificar o ajustar los tests, puedes hacerlo editando el archivo `.github/workflows/cypress.yml`. Este archivo contiene la configuración del flujo de trabajo de CI para Cypress.
-
 ### ¡Gracias por tu interés en React Tree App! ❤
