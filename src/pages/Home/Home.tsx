@@ -49,6 +49,7 @@ const Home = () => {
 
       <label>Edit tree</label>
       <Switch
+        name="editableTreeSwitch"
         checked={editableTree}
         onClick={toggleEditable}
         aria-label="Toggle editable tree"
@@ -56,6 +57,7 @@ const Home = () => {
 
       <label>Expand all tree</label>
       <Switch
+        name="expandTreeSwitch"
         checked={expandAllTree}
         onClick={toggleExpandAllTree}
         aria-label="Toggle expand tree"

@@ -53,6 +53,7 @@ export const RenderEditableTree: React.FC<RenderEditableTreeProps> = memo(
       return (
         <>
           <Input
+            name="new-node"
             defaultValue={title}
             sx={{ marginLeft: isCollapsable ? 0 : "4.5rem" }}
             onChange={debounce({

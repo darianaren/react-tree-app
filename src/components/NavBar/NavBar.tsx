@@ -40,7 +40,7 @@ const NavBar: React.FC<NavBarProps> = ({ pages = DEFAULT_PAGES }) => {
       <Toolbar>
         <Typography
           variant="h6"
-          component="h1"
+          component="h2"
           sx={{
             flexGrow: 1,
             color: "#fff",
