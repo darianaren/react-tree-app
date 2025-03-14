@@ -4,7 +4,7 @@ React Tree App es una aplicación web que utiliza React, Material-UI, y React Ro
 
 La aplicación está diseñada para ser flexible y extensible, permitiendo la fácil integración con diferentes conjuntos de páginas. Además, incluye una configuración de Storybook para el desarrollo y prueba de componentes aislados.
 
-![image](https://github.com/user-attachments/assets/5a98615d-c0d0-40b1-a643-d70d9ff7ce18)
+![image](https://github.com/user-attachments/assets/5268ad2c-0e6a-40fd-953e-be2e4eee097c)
 
 ## 🌐 Enlace de Despliegue
 
