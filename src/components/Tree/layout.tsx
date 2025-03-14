@@ -63,7 +63,7 @@ export const RenderEditableTree: React.FC<RenderEditableTreeProps> = memo(
         <>
           <Input
             defaultValue={title}
-            sx={{ marginLeft: isCollapsable ? 0 : "4.5rem" }}
+            sx={{ marginLeft: isCollapsable ? 0 : "4rem" }}
             onChange={debounce({
               func: (e) =>
                 onChange(ACTIONS.EDIT_NODE, { id, title: e.target.value })
@@ -121,6 +121,7 @@ export const AddForm: React.FC<AddFormProps> = memo(
     return (
       <Box sx={{ marginLeft: "4rem", marginTop: "1rem" }}>
         <Input
+          autoFocus
           required
           type="text"
           value={newNodeTitle}
